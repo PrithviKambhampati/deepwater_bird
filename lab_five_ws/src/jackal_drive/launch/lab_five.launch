@@ -1,0 +1,12 @@
+<launch>
+
+  <!--start lidar -->
+  <node name="lidar" pkg="sicktoolbox_wrapper" type="sicklms" args="_port:=/dev/ttyS0 _baud:=38400"/>
+
+  <!-- Start auto move -->
+  <!-- <node ="auto" pkg="jackal_drive" type="rand_move.py" /> -->
+
+  <!--- Run gmapping -->
+  <!-- <include file="$(find jackal_navigation)/launch/include/gmapping.launch" /> -->
+
+</launch>
