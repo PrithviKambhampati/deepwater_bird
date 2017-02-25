@@ -27,7 +27,7 @@ from sensor_msgs.msg import LaserScan
 
 
 # Global variables for random bounds
-scale       =  0.3
+scale       =  0.5
 angular_min = -1 
 linear_min  = -1 
 angular_max =  1 
@@ -99,14 +99,14 @@ def Callback(data):
     # Set the threshold levels for randomization
     
     # Too close in front, turn left and slowly back up  
-    if frontAve < 2 :
+    if frontAve < 1 :
         angular_min = 0.25 * scale
         angular_max = 0.5  * scale
         linear_min  = -0.05 * scale 
         linear_max  = 0 * scale
       
     # All Clear, randomly drive forward with varying turn  
-    elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
+    elif (frontAve > 2) and (leftAve > side_thresh) and (rightAve > side_thresh) :
         angular_min = -1.25 * scale
         angular_max = 1.25 * scale
         linear_min  = 0.50 * scale
