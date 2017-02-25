@@ -174,19 +174,6 @@ def setup():
 
         rate.sleep()
 
-    #start save map
-    package ='map_server'
-    executable ='map_saver'
-    node = roslaunch.core.Node(package, executable, args="-f "+str(os.path.dirname(os.path.realpath(__file__)))[:-7]+"maps/newMap")
-    
-	
-    launch = roslaunch.scriptapi.ROSLaunch()
-    launch.start()
-
-    process = launch.launch(node)
-    while process.is_alive():
-        print process.is_alive()
-    
 # standard ros boilerplate
 if __name__ == "__main__":
     try:
