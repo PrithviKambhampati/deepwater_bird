@@ -6,7 +6,7 @@
   <!-- Start auto move -->
   <!-- <node ="auto" pkg="jackal_drive" type="rand_move.py" /> -->
 
-  <!--- Run gmapping -->
-  <!-- <include file="$(find jackal_navigation)/launch/include/gmapping.launch" /> -->
+  <!--rosbag -->
+  <node pkg="rosbag" type="record" name="rec_tf_scan" args="-O $(find jackal_drive)/bags/nav /tf /scan"/>
 
 </launch>
