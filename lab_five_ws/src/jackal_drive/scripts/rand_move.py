@@ -27,7 +27,7 @@ from sensor_msgs.msg import LaserScan
 
 
 # Global variables for random bounds
-scale       =  0.5
+scale       =  0.3
 angular_min = -1 
 linear_min  = -1 
 angular_max =  1 
@@ -36,7 +36,7 @@ linear_max  =  1
 start_time  =  0
 
 # Constants for laser averaging
-front_delta = 30
+front_delta = 15
 side_ang    = 30
 side_delta  = 15
 side_thresh = 1.35
@@ -106,7 +106,7 @@ def Callback(data):
         linear_max  = 0 * scale
       
     # All Clear, randomly drive forward with varying turn  
-    elif (frontAve > 2) and (leftAve > side_thresh) and (rightAve > side_thresh) :
+    elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
         angular_min = -1.25 * scale
         angular_max = 1.25 * scale
         linear_min  = 0.50 * scale
