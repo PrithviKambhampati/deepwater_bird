@@ -36,7 +36,7 @@ linear_max  =  1
 start_time  =  0
 
 # Constants for laser averaging
-front_delta = 15
+front_delta = 30
 side_ang    = 30
 side_delta  = 15
 side_thresh = 1.35
@@ -99,7 +99,7 @@ def Callback(data):
     # Set the threshold levels for randomization
     
     # Too close in front, turn left and slowly back up  
-    if frontAve < 1 :
+    if frontAve < 2 :
         angular_min = 0.25 * scale
         angular_max = 0.5  * scale
         linear_min  = -0.05 * scale 
