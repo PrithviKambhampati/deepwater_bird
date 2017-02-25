@@ -13,6 +13,7 @@
 #
 # Revision: v1.3
 
+
 # imports
 import rospy
 import random
@@ -26,7 +27,7 @@ from sensor_msgs.msg import LaserScan
 
 
 # Global variables for random bounds
-scale       =  1
+scale       =  0.5
 angular_min = -1 
 linear_min  = -1 
 angular_max =  1 
@@ -134,7 +135,7 @@ def setup():
     rospy.init_node("jackal_map")
 
     # subscribe to all
-    rospy.Subscriber("/front/scan", LaserScan, Callback)
+    rospy.Subscriber("/scan", LaserScan, Callback)
     # rate = rospy.Rate(user_rate)
     rate = rospy.Rate(50)
 
