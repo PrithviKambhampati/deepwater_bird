@@ -100,28 +100,28 @@ def Callback(data):
 
     # Too close in front, turn left and slowly back up
     if frontAve < 2 :
-        angular_min = 0.5 * scale
+        angular_min = 0.75 * scale
         angular_max = 0.75  * scale
         linear_min  = 0 * scale #-0.05
         linear_max  = 0 * scale
 
     # All Clear, randomly drive forward with varying turn
-    elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
-        angular_min = -0 * scale
+    elif (frontAve > 2) and (leftAve > side_thresh) and (rightAve > side_thresh) :
+        angular_min = 0 * scale
         angular_max = 0 * scale
-        linear_min  = 0.50 * scale
+        linear_min  = 1.0 * scale
         linear_max  = 1.0 * scale
 
     # Close to a wall on one side, turn to side with most time
     else :
         if leftAve > rightAve :
-            angular_min = 0.75 * scale
+            angular_min = 1.0 * scale
             angular_max = 1.0 * scale
             linear_min  = 0 * scale
             linear_max  = 0 * scale
         else :
             angular_min = -1.0 * scale
-            angular_max = -0.75 * scale
+            angular_max = -1.0 * scale
             linear_min  = 0 * scale
             linear_max  = 0 * scale
 
