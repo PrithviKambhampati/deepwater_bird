@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # publisher + subscriber that reads laser scan data from Jackal and
-# generates a movement pattern for Jackal to generate a map 
+# generates a movement pattern for Jackal to generate a map
 
 # Intro to Robotics - EE5900 - Spring 2017
 #          Assignment #3
@@ -28,9 +28,9 @@ from sensor_msgs.msg import LaserScan
 
 # Global variables for random bounds
 scale       =  0.25
-angular_min = -1 
-linear_min  = -1 
-angular_max =  1 
+angular_min = -1
+linear_min  = -1
+angular_max =  1
 linear_max  =  1
 
 start_time  =  0
@@ -46,7 +46,7 @@ side_thresh = 1.35
 def toAng(rad):
     ang = rad * 180 / 3.14
     return ang
-    
+
 
 # Averaged Sum of scan points function
 def getSum(start, end, data):
@@ -55,11 +55,11 @@ def getSum(start, end, data):
     while index < end :
         if data.ranges[index] < 15:
             angSum = angSum + data.ranges[index]
-            
+
         index = index + 1
-        
+
     angSum = float(angSum) / float(end-start)
-    
+
     return angSum
 
 
@@ -71,59 +71,59 @@ def getMin(start, end, data):
     while index < end :
         if data.ranges[index] < minScan:
             prev = data.ranges[index]
-            
+
         index = index + 1
-    
+
     return minScan
 
 
 # define callback for twist
 def Callback(data):
     global linear_min, linear_max, angular_min, angular_max
-    
+
     # Calculate front, left, and right angles in the data array
     zeroAng    = int((((abs(data.angle_min) + abs(data.angle_max)) / data.angle_increment) / 2) - 1)
     leftAng    = zeroAng + int(side_ang / toAng(data.angle_increment))
     rightAng   = zeroAng - int(side_ang / toAng(data.angle_increment))
     sideOffset = int(side_delta / toAng(data.angle_increment))
     zeroOffset = int(front_delta / toAng(data.angle_increment))
-    
+
     # Compute averages for left, right, and front laser scan spans
     leftAve  = getMin(leftAng, leftAng + sideOffset, data)
     rightAve = getMin(rightAng - sideOffset, rightAng, data)
     frontAve = getMin(zeroAng - zeroOffset, zeroAng + zeroOffset, data)
-    
+
     # Output for monitoring
     rospy.loginfo('\t%3.4f  -  %3.4f  -  %3.4f', leftAve, frontAve, rightAve)
-        
+
     # Set the threshold levels for randomization
-    
-    # Too close in front, turn left and slowly back up  
+
+    # Too close in front, turn left and slowly back up
     if frontAve < 2 :
         angular_min = 0.5 * scale
         angular_max = 0.75  * scale
         linear_min  = 0 * scale #-0.05
         linear_max  = 0 * scale
-      
-    # All Clear, randomly drive forward with varying turn  
+
+    # All Clear, randomly drive forward with varying turn
     elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
-        angular_min = -1.25 * scale
-        angular_max = 1.25 * scale
+        angular_min = -0 * scale
+        angular_max = 0 * scale
         linear_min  = 0.50 * scale
         linear_max  = 1.0 * scale
-        
+
     # Close to a wall on one side, turn to side with most time
     else :
         if leftAve > rightAve :
             angular_min = 0.75 * scale
             angular_max = 1.0 * scale
-            linear_min  = 0.25 * scale
-            linear_max  = 0.75 * scale
+            linear_min  = 0 * scale
+            linear_max  = 0 * scale
         else :
             angular_min = -1.0 * scale
             angular_max = -0.75 * scale
-            linear_min  = 0.25 * scale
-            linear_max  = 0.75 * scale
+            linear_min  = 0 * scale
+            linear_max  = 0 * scale
 
 
 # define setup and run routine
@@ -141,13 +141,13 @@ def setup():
 
     # publish to cmd_vel of the jackal
     pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
-    
+
     # Variables for messages and timing
     count = 0
     countLimit = random.randrange(25,75)
     randLin = float(0.0)
     randAng = float(0.0)
-    
+
     # loop
     while not time.time()-start_time>600:
 
