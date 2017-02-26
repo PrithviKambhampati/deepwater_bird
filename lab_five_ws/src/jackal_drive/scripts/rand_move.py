@@ -106,7 +106,7 @@ def Callback(data):
         linear_max  = 0 * scale
 
     # All Clear, randomly drive forward with varying turn
-    elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
+elif (frontAve > 2) and (leftAve > side_thresh) and (rightAve > side_thresh) :
         angular_min = -0 * scale
         angular_max = 0 * scale
         linear_min  = 0.50 * scale
