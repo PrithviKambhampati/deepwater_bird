@@ -167,7 +167,7 @@ def setup():
 
 		# publish Twist
         pub.publish(publish_msg)
-        pub = rospy.Publisher("/jackal_velocity_controller/cmd_vel", Twist)
+        pub = rospy.Publisher("/jackal_velocity_controller/cmd_vel", Twist, queue_size=1)
 
         rate.sleep()
 
