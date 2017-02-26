@@ -98,11 +98,11 @@ def Callback(data):
         
     # Set the threshold levels for randomization
     
-    # Too close in front, turn left and slowly back up  
+        # Too close in front, turn left and slowly back up  
     if frontAve < 2 :
-        angular_min = 0.5 * scale
-        angular_max = 0.75  * scale
-        linear_min  = 0 * scale #-0.05
+        angular_min = 0.25 * scale
+        angular_max = 0.5  * scale
+        linear_min  = -0.05 * scale 
         linear_max  = 0 * scale
       
     # All Clear, randomly drive forward with varying turn  
