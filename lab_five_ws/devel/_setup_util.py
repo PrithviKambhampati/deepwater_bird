@@ -263,7 +263,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/opt/ros/indigo'.split(';')
+        CMAKE_PREFIX_PATH = '/home/aj/git_work/jackal_navigation/devel;/home/aj/git_work/expert-disco/catkin_ws/devel;/home/aj/git_work/bookish-fiesta/catkin_wp/devel;/opt/ros/indigo'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:
