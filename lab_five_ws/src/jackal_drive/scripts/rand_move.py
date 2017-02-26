@@ -27,7 +27,7 @@ from sensor_msgs.msg import LaserScan
 
 
 # Global variables for random bounds
-scale       =  0.5
+scale       =  0.25
 angular_min = -1 
 linear_min  = -1 
 angular_max =  1 
@@ -36,7 +36,7 @@ linear_max  =  1
 start_time  =  0
 
 # Constants for laser averaging
-front_delta = 15
+front_delta = 20
 side_ang    = 30
 side_delta  = 15
 side_thresh = 1.35
@@ -99,14 +99,14 @@ def Callback(data):
     # Set the threshold levels for randomization
     
     # Too close in front, turn left and slowly back up  
-    if frontAve < 1 :
+    if frontAve < 2 :
         angular_min = 0.25 * scale
         angular_max = 0.5  * scale
         linear_min  = -0.05 * scale 
         linear_max  = 0 * scale
       
     # All Clear, randomly drive forward with varying turn  
-    elif (frontAve > 2) and (leftAve > side_thresh) and (rightAve > side_thresh) :
+    elif (frontAve > 3) and (leftAve > side_thresh) and (rightAve > side_thresh) :
         angular_min = -1.25 * scale
         angular_max = 1.25 * scale
         linear_min  = 0.50 * scale
@@ -167,10 +167,7 @@ def setup():
 
 		# publish Twist
         pub.publish(publish_msg)
-        pub = rospy.Publisher("/jackal_velocity_controller/cmd_vel", Twist, queue_size=10)
-
-        # rospy.loginfo('linear_min=%d  linear_max=%d  angular_min=%d  angular_max=%d'%(linear_min, linear_max, angular_min, angular_max))
-        # rospy.loginfo("random movement x = {} z = {}".format(motion.linear.x, motion.angular.z))
+        pub = rospy.Publisher("/jackal_velocity_controller/cmd_vel", Twist)
 
         rate.sleep()
 
